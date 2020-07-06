@@ -1,0 +1,1 @@
+Stripe Checkout Widget for ADA
