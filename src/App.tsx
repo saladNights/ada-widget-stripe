@@ -122,6 +122,7 @@ class App extends React.Component<{}, {}> {
 
   render() {
     const {
+      isActive,
       stripeKey,
       initStripe,
       name,
@@ -164,17 +165,19 @@ class App extends React.Component<{}, {}> {
 
     return (
       <div className={styles.wrapper}>
-        <div className={styles.stripeWrapper} ref={this.stripeRef}>
-          {initStripe && (
-            <StripeCheckout
-              token={this.sendDataToADA}
-              stripeKey={stripeKey}
-              {...stripeParams}
-            >
-              <button className={styles.stripeBtn} />
-            </StripeCheckout>
-          )}
-        </div>
+        {isActive && (
+          <div className={styles.stripeWrapper} ref={this.stripeRef}>
+            {initStripe && (
+              <StripeCheckout
+                token={this.sendDataToADA}
+                stripeKey={stripeKey}
+                {...stripeParams}
+              >
+                <button className={styles.stripeBtn} />
+              </StripeCheckout>
+            )}
+          </div>
+        )}
         <div className={styles.errorsWrapper}>
           {errors.map((error) => (
             <div key={error} className={styles.error}>{errorMsgs[error]}</div>
