@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b3d7d6cb0d68f074d5ca88b69e79056b",
+    "revision": "88e0b934a170f2766f2d6daae658412b",
     "url": "/ada-widget-stripe/index.html"
   },
   {
-    "revision": "aae9cb64200b43cee1b3",
+    "revision": "4d650f2940cb3bd51788",
     "url": "/ada-widget-stripe/static/css/main.a36ec590.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ada-widget-stripe/static/js/2.81faea81.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aae9cb64200b43cee1b3",
-    "url": "/ada-widget-stripe/static/js/main.44185e67.chunk.js"
+    "revision": "4d650f2940cb3bd51788",
+    "url": "/ada-widget-stripe/static/js/main.da0bb1ce.chunk.js"
   },
   {
     "revision": "df72b1baa042f127291a",
