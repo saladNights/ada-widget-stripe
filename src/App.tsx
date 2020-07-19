@@ -31,6 +31,7 @@ interface IState {
   };
   errors: string[];
   success: boolean;
+  ended: boolean;
 }
 
 class App extends React.Component<unknown, IState> {
@@ -59,6 +60,7 @@ class App extends React.Component<unknown, IState> {
     },
     errors: [],
     success: false,
+    ended: false,
   };
 
   componentDidMount() {
@@ -83,6 +85,8 @@ class App extends React.Component<unknown, IState> {
             bitcoin: event.metaData.bitcoin === 'true',
             allowRememberMe: event.metaData.allow_remember_me === 'true',
           });
+        } else {
+          this.setState({ ended: true });
         }
       });
     } catch (e) {
@@ -142,6 +146,7 @@ class App extends React.Component<unknown, IState> {
       errorMsgs,
       errors,
       success,
+      ended,
     } = this.state;
 
     const stripeParams: { [key: string]: string | number | boolean } = {
@@ -174,6 +179,7 @@ class App extends React.Component<unknown, IState> {
             )}
           </div>
         )}
+        {ended && <div className={styles.msg}>Checkout ended</div>}
         <div className={styles.errorsWrapper}>
           {errors.map((error) => (
             <div key={error} className={styles.error}>
