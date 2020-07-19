@@ -8,8 +8,6 @@ import styles from './App.module.scss';
 const AdaWidgetSDK = require('@ada-support/ada-widget-sdk');
 const widgetSDK = new AdaWidgetSDK();
 
-interface IProps {}
-
 interface IState {
   isActive: boolean;
   stripeKey: string;
@@ -35,7 +33,7 @@ interface IState {
   success: boolean;
 }
 
-class App extends React.Component<{}, {}> {
+class App extends React.Component<unknown, IState> {
   private stripeRef = React.createRef<HTMLDivElement>();
 
   state = {
@@ -87,17 +85,16 @@ class App extends React.Component<{}, {}> {
           });
         }
       });
-    }
-    catch (e) {
+    } catch (e) {
       console.error('ADA SDK could not be initialized');
       this.setState({
-        isActive:false,
-        errors: ['initialized']
+        isActive: false,
+        errors: ['initialized'],
       });
     }
   }
 
-  componentDidUpdate(prevProps: IProps, prevState: IState) {
+  componentDidUpdate(prevProps: unknown, prevState: IState) {
     const { isActive, stripeKey } = this.state;
 
     if (!widgetSDK.widgetIsActive && prevState.isActive) this.setState({ isActive: false });
@@ -112,11 +109,14 @@ class App extends React.Component<{}, {}> {
 
   sendDataToADA = (token: Token) => {
     if (widgetSDK.widgetIsActive) {
-      widgetSDK.sendUserData({
-        ...flattenObject(token),
-      }, () => {
-        this.setState({ isActive: false, success: true });
-      });
+      widgetSDK.sendUserData(
+        {
+          ...flattenObject(token),
+        },
+        () => {
+          this.setState({ isActive: false, success: true });
+        },
+      );
     }
   };
 
@@ -144,7 +144,7 @@ class App extends React.Component<{}, {}> {
       success,
     } = this.state;
 
-    const stripeParams: { [key: string]: string | number | boolean; } = {
+    const stripeParams: { [key: string]: string | number | boolean } = {
       name,
       description,
       image,
@@ -168,11 +168,7 @@ class App extends React.Component<{}, {}> {
         {isActive && (
           <div className={styles.stripeWrapper} ref={this.stripeRef}>
             {initStripe && (
-              <StripeCheckout
-                token={this.sendDataToADA}
-                stripeKey={stripeKey}
-                {...stripeParams}
-              >
+              <StripeCheckout token={this.sendDataToADA} stripeKey={stripeKey} {...stripeParams}>
                 <button className={styles.stripeBtn} />
               </StripeCheckout>
             )}
@@ -180,7 +176,9 @@ class App extends React.Component<{}, {}> {
         )}
         <div className={styles.errorsWrapper}>
           {errors.map((error) => (
-            <div key={error} className={styles.error}>{errorMsgs[error]}</div>
+            <div key={error} className={styles.error}>
+              {errorMsgs[error]}
+            </div>
           ))}
         </div>
         {success && <div className={styles.success}>Payment Successful</div>}
